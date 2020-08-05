@@ -1,0 +1,41 @@
+- hosts: all
+  tasks:
+          - name: docker and yum configuration on managed node
+            copy:
+                  src: conf.repo
+                  dest: /etc/yum.repos.d/
+                
+          - name: Copy index.html from controller node to managed node
+            copy:
+                    src: "index.html"
+                    dest: "/var/www/html/"
+
+
+          - name: Install docker
+            package:
+                  name: docker-ce-18.06.3.ce-3.el7.x86_64
+                  state: present
+
+          - command: "pip3 install 'docker'"
+          
+          - name: Start docker services
+            service:
+                   name: docker
+                   state: started
+                   enabled: yes
+            ignore_errors: yes
+          
+          - name: pull docker image  
+            docker_image: 
+                   name: httpd
+                   source: pull
+
+          - name: creating a docker container named with os and mounting /var/www/html/ host to /usr/local/apache2/htdocs/           
+            docker_container:
+                  name: os
+                  image: httpd
+                  state: started
+                  exposed_ports: "80"
+                  ports: "8080:9000"
+                  volumes: 
+                     - /var/www/html/:/usr/local/apache2/htdocs/

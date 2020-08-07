@@ -17,4 +17,4 @@ Ansible works by connecting to nodes(client,server,etc) on a network, and then s
 
 # Docker
 
-Docker provides the ability to package and run an application loosely isolated environment called a container
+Docker provides the ability to package and run an application loosely isolated environment called a container.Docker is an open platform for developing, shipping, and running applications. Docker enables you to separate your applications from your infrastructure so you can deliver software quickly. With Docker, you can manage your infrastructure in the same ways you manage your applications.
